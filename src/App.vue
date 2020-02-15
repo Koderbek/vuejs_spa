@@ -1,28 +1,38 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <v-app>
+      <v-content>
+        <v-container>
+          <div class="text-center">
+            <v-img :src="imgPath" contain height="180"/>
+            <h1 class="display-2 font-weight-bold mb-4">
+              Football Info
+            </h1>
+
+            <h2 class="display-1 font-weight-bold mb-6">
+              <span>Leagues</span>
+            </h2>
+          </div>
+        </v-container>
+
+        <Leagues/>
+
+      </v-content>
+    </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+  import Leagues from './components/leagues.vue'
+  import Logo from './assets/logo.png'
 
-export default {
-  name: 'app',
-  components: {
-    HelloWorld
+  export default {
+    name: 'app',
+    data() {
+      return {
+        imgPath: Logo
+      };
+    },
+    components: {
+      Leagues
+    }
   }
-}
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
