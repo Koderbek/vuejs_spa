@@ -1,17 +1,20 @@
+const webpackCopy = require('copy-webpack-plugin');
 const path = require('path');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpack = require('webpack');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const outputDirectory = 'dist';
 
 module.exports = {
-    mode: 'production',
-    entry: ["./src/main.js"],
+    mode: 'development',
+    entry: ["webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000", "./src/main.js"],
     output: {
         filename: '[name].js',
         path: path.resolve(__dirname, outputDirectory),
         publicPath: '/',
-        globalObject: `(typeof self !== 'undefined' ? self : this)`
+        globalObject: `(typeof self !== 'undefined' ? self : this)`,
+        hotUpdateChunkFilename: ".hot/[id].[hash].hot-update.js",
+        hotUpdateMainFilename: ".hot/[hash].hot-update.json"
     },
     module: {
         rules: [
@@ -30,8 +33,7 @@ module.exports = {
                     {
                         loader: 'css-loader',
                         options: { importLoaders: 1 }
-                    },
-                    'postcss-loader'
+                    }
                 ]
             },
             {
@@ -45,7 +47,7 @@ module.exports = {
                             implementation: require('sass'),
                             sassOptions: {
                                 fiber: require('fibers'),
-                                indentedSyntax: true
+                                indentedSyntax: true // optional
                             },
                         },
                     },
@@ -65,7 +67,12 @@ module.exports = {
         new VueLoaderPlugin(),
         new webpack.DefinePlugin({
             'typeof window': JSON.stringify('object')
-        })
+        }),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpackCopy([
+            { from: 'node_modules/vue/dist/vue.min.js', to: 'extLib/vue.min.js' },
+            { from: 'node_modules/vuetify/dist/vuetify.min.js', to: 'extLib/vuetify.min.js' }
+        ])
     ],
     externals: {
         vue: 'Vue',

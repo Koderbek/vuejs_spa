@@ -1,16 +1,45 @@
-const webpack = require('webpack');
-const middleware = require('webpack-dev-middleware');
-const config = require('../webpack.config.js');
-const express = require('express');
+const express = require("express");
+const webpack = require("webpack");
+const webpackDevMiddleware = require("webpack-dev-middleware");
+const webpackHotMiddleware = require("webpack-hot-middleware");
 
-const compiler = webpack(config);
+const { applyHbs } = require("./template");
+
 const app = express();
+const config = require("./settings");
+
+applyHbs(app);
+
+app.get(["/api"], function(request, response) {
+  setTimeout(
+    () =>
+      response
+        .header("Content-Type", "application/json")
+        .send({ text: "Hello world!" }),
+    1000
+  );
+});
+
+const webpackConfig = require('../webpack.config.develop.js');
+const compiler = webpack(webpackConfig);
 
 app.use(
-    middleware(compiler, {  })
+  webpackDevMiddleware(compiler, {
+    publicPath: webpackConfig.output.publicPath,
+    stats: false,
+    noInfo: true
+  })
 );
 
+app.use(webpackHotMiddleware(compiler));
+
+app.use(["/"], function(request, response) {
+  response.render("index.hbs", {
+    ...config
+  });
+});
+
 // eslint-disable-next-line no-console
-app.listen(3000, () => console.log('Example app listening on port 3000!'));
+app.listen(3000, () => console.log("Listening on port 3000!"));
 
 module.exports = app;
