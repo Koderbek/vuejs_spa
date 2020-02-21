@@ -15,7 +15,7 @@
           </div>
         </v-container>
 
-        <Leagues/>
+        <router-view/>
 
       </v-content>
     </v-app>
@@ -23,7 +23,6 @@
 </template>
 
 <script>
-  import Leagues from './components/leagues.vue'
   import Logo from './assets/logo.png'
 
   export default {
@@ -33,8 +32,6 @@
         imgPath: Logo
       };
     },
-    components: {
-      Leagues
-    }
+    components: {}
   }
 </script>
