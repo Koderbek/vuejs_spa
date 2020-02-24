@@ -2,16 +2,12 @@
   <div id="app">
     <v-app>
       <v-content>
-        <v-container>
+        <v-container class="primary">
           <div class="text-center">
             <v-img :src="imgPath" contain height="180"/>
             <h1 class="display-2 font-weight-bold mb-4">
               Football Info
             </h1>
-
-            <h2 class="display-1 font-weight-bold mb-6">
-              <span>Leagues</span>
-            </h2>
           </div>
         </v-container>
 
@@ -32,6 +28,6 @@
         imgPath: Logo
       };
     },
-    components: {}
+    components: {},
   }
 </script>
