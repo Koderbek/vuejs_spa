@@ -1,26 +1,24 @@
 <template>
     <v-container>
         <h2 class="text-center display-1 font-weight-bold mb-2">
-            <span>Leagues</span>
+            <span>Teams</span>
         </h2>
 
-        <v-row v-for="league in leagues" :key="league.id" class="text-center">
+        <div v-if="loading" class="text-center">Loading...</div>
+
+        <v-row v-for="team in teams" :key="team.id" class="text-center">
             <v-col>
                 <v-card class="mx-auto grey" width="344" outlined>
                     <v-list-item>
                         <v-list-item-content>
                             <v-list-item-title class="headline mb-1">
-                                {{ league.name }}
+                                {{ team.name }}
                             </v-list-item-title>
                         </v-list-item-content>
                         <v-list-item-avatar tile size="80" color="blue">
-                            <v-img :src="league.logo" contain height="50"/>
+                            <v-img :src="team.logo" contain height="50"/>
                         </v-list-item-avatar>
                     </v-list-item>
-                    <v-card-actions>
-                        <router-link :to="{name: 'teamsList', params: {id: league.id}}">Teams</router-link>
-                        <router-link :to="{name: 'table', params: {id: league.id}}">League table</router-link>
-                    </v-card-actions>
                 </v-card>
             </v-col>
         </v-row>
@@ -28,14 +26,20 @@
 </template>
 
 <script>
-    const leaguesJson = require('../__data__/mock_leagues.json');
+    import getTeams from '../__data__/actions/get-team.js';
 
     export default {
-        name: 'Leagues',
+        name: 'Teams',
         data() {
             return {
-                leagues: leaguesJson,
+                teams: [],
+                loading: true,
             };
+        },
+        created: function () {
+            getTeams(this.$route.params.id)
+                .then((res) => this.teams = res)
+                .finally(() => (this.loading = false));
         }
     };
 </script>

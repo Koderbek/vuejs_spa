@@ -2,15 +2,12 @@
   <div id="app">
     <v-app>
       <v-content>
-        <v-container class="primary">
-          <div class="text-center">
-            <v-img :src="imgPath" contain height="180"/>
-            <h1 class="display-2 font-weight-bold mb-4">
-              Football Info
-            </h1>
-          </div>
-        </v-container>
-
+        <div class="text-center primary">
+          <v-img :src="imgPath" contain height="150"/>
+          <h1 class="display-2 font-weight-bold mb-4">
+            Football Info
+          </h1>
+        </div>
         <router-view/>
 
       </v-content>

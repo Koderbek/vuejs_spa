@@ -6,7 +6,7 @@
 
         <div v-if="loading" class="text-center">Loading...</div>
 
-        <v-row v-for="team in teams" :key="team.id" class="text-center">
+        <v-row v-for="team in teams" :key="team.team_id" class="text-center">
             <v-col>
                 <v-card class="mx-auto grey" width="344" outlined>
                     <v-list-item>
