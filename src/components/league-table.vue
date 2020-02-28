@@ -24,7 +24,9 @@
                 <v-col>{{ team.rank }}</v-col>
                 <v-col>
                     <v-img :src="team.logo" contain height="20"/>
-                    {{ team.teamName }}
+                    <router-link :to="{name: 'teamPlayers', params: {team: team.team_id}}">
+                        {{ team.teamName }}
+                    </router-link>
                 </v-col>
                 <v-col>{{ team.all.matchsPlayed }}</v-col>
                 <v-col>{{ team.all.win }}</v-col>
@@ -44,7 +46,7 @@
         name: 'LeagueTable',
         data() {
             return {
-                teams: [],
+                teams: null,
                 loading: true,
             };
         },

@@ -2,16 +2,13 @@
   <div id="app">
     <v-app>
       <v-content>
-        <header class = "mt-3">
-          <!--<marquee>-->
-            <div id = "main-title" class = "pl-11 pr-3">
-              <h1 class="d-inline-block">
-                Football Info
-              </h1>
-              <v-img id = "header__img" max-width="150" max-height="150" class = "ml-3 d-inline-block" :src="imgPath"/>
+        <header class="mt-3">
+            <div id="main-title" class="pl-11 pr-3">
+              <h1 class="d-inline-block">Football Info</h1>
+              <v-img max-width="150" max-height="150" class = "ml-3 d-inline-block" :src="imgPath"/>
             </div>
-          <!--</marquee>-->
         </header>
+
         <router-view/>
       </v-content>
     </v-app>
@@ -37,14 +34,7 @@
   header {
     height: 150px;
     text-align: center;
-  }
-
-  #main-title {
-
-  }
-
-  #header__img {
-
+    margin-bottom: 30px;
   }
 
   #main-title h1 {
