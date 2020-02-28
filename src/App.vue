@@ -2,28 +2,21 @@
   <div id="app">
     <v-app>
       <v-content>
-        <v-container>
-          <div class="text-center">
-            <v-img :src="imgPath" contain height="180"/>
-            <h1 class="display-2 font-weight-bold mb-4">
-              Football Info
-            </h1>
-
-            <h2 class="display-1 font-weight-bold mb-6">
-              <span>Leagues</span>
-            </h2>
-          </div>
-        </v-container>
+        <header class="mt-3">
+            <div id="main-title" class="pl-11 pr-3">
+              <h1 class="d-inline-block">Football Info</h1>
+              <v-img max-width="150" max-height="150" class = "ml-3 d-inline-block" :src="imgPath"/>
+            </div>
+        </header>
 
         <router-view/>
-
       </v-content>
     </v-app>
   </div>
 </template>
 
 <script>
-  import Logo from './assets/logo.png'
+  import Logo from './assets/soccer.png'
 
   export default {
     name: 'app',
@@ -32,6 +25,23 @@
         imgPath: Logo
       };
     },
-    components: {}
+    components: {},
   }
 </script>
+
+<style>
+  @import url('https://fonts.googleapis.com/css?family=Trade+Winds&display=swap');
+  header {
+    height: 150px;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  #main-title h1 {
+    font-family: 'Trade Winds', sans-serif !important;
+    font-size: 3rem;
+    line-height: 6rem;
+    top: -50px;
+    position: relative;
+  }
+</style>

@@ -1,53 +1,54 @@
 <template>
-  <v-container>
-<!--    <div v-if="loading" class="text-center">Loading...</div>-->
+    <v-container>
+        <h2 class="text-center display-1 font-weight-bold mb-2">
+            Leagues
+        </h2>
 
-    <v-row v-for="item in items" :key="item.league_id" class="text-center">
-      <v-col v-if="item.logo" class="mb-4">
-        <v-img :src="item.logo" contain height="50"/>
-        <h3>{{ item.name }}</h3>
-      </v-col>
-    </v-row>
-  </v-container>
+        <v-row class="text-center">
+            <v-col md="3" v-for="league in leagues" :key="league.id">
+                <v-card class="mx-auto league-card" :to="{name: 'table', params: {id: league.id}}" width="344" outlined>
+                    <v-list-item>
+                        <v-list-item-content>
+                            <v-list-item-title class="league-card__headline">
+                                {{ league.name }}
+                            </v-list-item-title>
+                        </v-list-item-content>
+                        <v-list-item-avatar tile size="80" color="grey lighten-3">
+                            <v-img :src="league.logo" contain height="50"/>
+                        </v-list-item-avatar>
+                    </v-list-item>
+                </v-card>
+            </v-col>
+        </v-row>
+    </v-container>
 </template>
 
 <script>
-    // import axios from 'axios'
-    //
-    // const personalApiKey = '4e436d1c54msh19af8e3baaddd90p189f54jsnf74b7880f274';
-    // const url = 'https://api-football-v1.p.rapidapi.com/v2/leagues/current/england';
-
-    //Временная заглушка, чтобы не тратить огранниченное кол-во запросов к серверу (100 запросов/день)
-    const leaguesJson = require('../assets/mock_data.json');
+    const leaguesJson = require('../__data__/mock_leagues.json');
 
     export default {
         name: 'Leagues',
         data() {
             return {
-                items: leaguesJson,
-                // items: [],
-                // errored: false,
-                // loading: true,
+                leagues: leaguesJson,
             };
-        },
-        // mounted: function () {
-        //   axios.get(url,
-        //           {
-        //             responseType: 'json',
-        //             headers: {'X-RapidAPI-Key': personalApiKey},
-        //             validateStatus: function (status) {
-        //               return status === 200;
-        //             }
-        //           })
-        //           .then(response => {
-        //             this.items = response.data.api.leagues;
-        //           })
-        //           .catch(error => {
-        //             // eslint-disable-next-line no-console
-        //             console.log(error);
-        //             this.errored = true;
-        //           })
-        //           .finally(() => (this.loading = false));
-        // }
+        }
     };
 </script>
+
+<style>
+
+    @import url('https://fonts.googleapis.com/css?family=Saira&display=swap');
+
+    .league-card
+    {
+        border-color: rgb(0, 0, 0) !important;
+    }
+
+    .league-card__headline
+    {
+        font-family: 'Saira', sans-serif !important;
+    }
+</style>
+
+
