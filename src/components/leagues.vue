@@ -12,7 +12,7 @@
                 outlined>
         </v-text-field>
 
-        <div v-if="!!searchResult" class="text-center"> {{ searchResult }}</div>
+        <div v-if="searchResult" class="text-center"> {{ searchResult }}</div>
 
         <v-row class="text-center">
             <v-col md="3" v-for="league in leagues" :key="league.league_id">
