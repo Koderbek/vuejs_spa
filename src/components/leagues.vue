@@ -2,11 +2,17 @@
     <v-container>
         <h2 class="text-center display-1 mb-6">Leagues</h2>
 
-        <v-row class="text-center" no-gutters>
-            <v-col class="text-center">
-                <v-text-field style="max-width: 300px" @keyup="setSearchVal" label="Country" placeholder="Enter country" type="text" outlined></v-text-field>
-            </v-col>
-        </v-row>
+        <v-text-field
+                label="Country"
+                placeholder="Enter country"
+                style="max-width: 300px"
+                @keyup="setSearchVal"
+                type="text"
+                :rules="countryRules"
+                outlined>
+        </v-text-field>
+
+        <div v-if="!!searchResult" class="text-center"> {{ searchResult }}</div>
 
         <v-row class="text-center">
             <v-col md="3" v-for="league in leagues" :key="league.league_id">
@@ -43,15 +49,28 @@
         data() {
             return {
                 leagues: leaguesJson,
-                searchParams: String
+                searchParams: String,
+                searchResult: null,
+                countryRules: [
+                    v => /([a-z]+)/i.test(v) || 'Enter only latin letters',
+                    v => v.length <= 30 || 'Country must be less than 30 characters'
+                ]
             };
         },
         methods: {
             setSearchVal: function(event) {
                 this.searchParams = event.target.value;
-                if (event.keyCode === 13) {
+                if (event.keyCode === 13 && this.searchParams) {
                     getLeagues(this.searchParams.toLowerCase())
-                        .then((res) => this.leagues = res);
+                        .then((res) => {
+                            if (res && res !== []) {
+                                this.leagues = res;
+                            } else {
+                                this.searchResult = 'По запросу "' + this.searchParams + '" ничего не найдено!';
+                            }
+                        });
+                } else {
+                    this.leagues = leaguesJson;
                 }
             }
         }
