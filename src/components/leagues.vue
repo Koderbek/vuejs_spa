@@ -52,7 +52,7 @@
                 searchParams: String,
                 searchResult: null,
                 countryRules: [
-                    v => /([a-z]+)/i.test(v) || 'Enter only latin letters',
+                    v => /^([a-z]+)$/i.test(v) || 'Enter only latin letters',
                     v => v.length <= 30 || 'Country must be less than 30 characters'
                 ]
             };
