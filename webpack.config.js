@@ -6,7 +6,7 @@ const outputDirectory = 'dist';
 
 module.exports = {
     mode: 'production',
-    entry: ["./src/main.js"],
+    entry: ["./src/index.js"],
     output: {
         filename: '[name].js',
         path: path.resolve(__dirname, outputDirectory),
@@ -69,6 +69,7 @@ module.exports = {
     ],
     externals: {
         vue: 'Vue',
-        'vuetify': 'Vuetify'
+        'vuetify': 'Vuetify',
+        'vuex': 'Vuex'
     }
 };

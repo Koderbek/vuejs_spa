@@ -4,11 +4,17 @@
         <div v-if="loading" class="text-center">Loading...</div>
 
         <v-row>
-            <v-col class="text-left"><router-link :to="{name: 'leagues'}"><- to leagues</router-link></v-col>
+            <v-col class="text-left">
+                <v-btn :to="{name: 'leagues'}" color="grey lighten-3" small>
+                    <v-icon left>mdi-arrow-left</v-icon>
+                    to leagues
+                </v-btn>
+            </v-col>
             <v-col class="text-right">
-                <router-link :to="{name: 'gamesList', params: {id: leagueId}}">
-                    to games ->
-                </router-link>
+                <v-btn :to="{name: 'gamesList'}" color="grey lighten-1" small>
+                    to games
+                    <v-icon right>mdi-arrow-right</v-icon>
+                </v-btn>
             </v-col>
         </v-row>
 

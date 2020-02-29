@@ -3,12 +3,18 @@
         <h2 class="text-center display-1">Games</h2>
         <div v-if="loadingLastGames && loadingNextGames" class="text-center">Loading...</div>
 
-        <v-row no-gutters>
-            <v-col class="text-left"><router-link :to="{name: 'leagues'}"><- to leagues</router-link></v-col>
+        <v-row>
+            <v-col class="text-left">
+                <v-btn :to="{name: 'leagues'}" color="grey lighten-3" small>
+                    <v-icon left>mdi-arrow-left</v-icon>
+                    to leagues
+                </v-btn>
+            </v-col>
             <v-col class="text-right">
-                <router-link :to="{name: 'table', params: {id: leagueId}}">
-                    to standings ->
-                </router-link>
+                <v-btn :to="{name: 'table'}" color="grey lighten-1" small>
+                    to standings
+                    <v-icon right>mdi-arrow-right</v-icon>
+                </v-btn>
             </v-col>
         </v-row>
 
@@ -44,6 +50,11 @@
                         <v-col>
                             <img :src="game.awayTeam.logo" align="left" height="30"/>
                             {{ game.awayTeam.team_name }}
+                        </v-col>
+                        <v-col lg="2">
+                            <v-btn color="indigo" icon disabled small>
+                                <v-icon>mdi-checkbox-marked-circle</v-icon>
+                            </v-btn>
                         </v-col>
                     </v-row>
                 </v-card>
