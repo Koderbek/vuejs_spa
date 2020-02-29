@@ -1,22 +1,26 @@
 <template>
     <v-container>
-        <h2 class="text-center display-1 font-weight-bold mb-2">
-            Leagues
-        </h2>
+        <h2 class="text-center display-1 mb-6">Leagues</h2>
 
         <v-row class="text-center">
-            <v-col md="3" v-for="league in leagues" :key="league.id">
-                <v-card class="mx-auto league-card" :to="{name: 'table', params: {id: league.id}}" width="344" outlined>
+            <v-col md="3" v-for="league in leagues" :key="league.league_id">
+                <v-card class="mx-auto league-card" width="344" outlined>
                     <v-list-item>
                         <v-list-item-content>
                             <v-list-item-title class="league-card__headline">
                                 {{ league.name }}
                             </v-list-item-title>
+                            <v-list-item-subtitle>{{ league.country }}</v-list-item-subtitle>
                         </v-list-item-content>
                         <v-list-item-avatar tile size="80" color="grey lighten-3">
                             <v-img :src="league.logo" contain height="50"/>
                         </v-list-item-avatar>
                     </v-list-item>
+
+                    <v-card-actions>
+                        <v-btn :to="{name: 'gamesList', params: {id: league.league_id}}" text>Games</v-btn>
+                        <v-btn :to="{name: 'table', params: {id: league.league_id}}" text>Standings</v-btn>
+                    </v-card-actions>
                 </v-card>
             </v-col>
         </v-row>

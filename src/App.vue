@@ -9,6 +9,8 @@
             </div>
         </header>
 
+        <hr>
+
         <router-view/>
       </v-content>
     </v-app>

@@ -1,15 +1,21 @@
 <template>
     <v-container>
-        <h2 class="text-center display-1 font-weight-bold mb-2">
-            <span>Standings</span>
-        </h2>
-
+        <h2 class="text-center display-1">Standings</h2>
         <div v-if="loading" class="text-center">Loading...</div>
+
+        <v-row>
+            <v-col class="text-left"><router-link :to="{name: 'leagues'}"><- to leagues</router-link></v-col>
+            <v-col class="text-right">
+                <router-link :to="{name: 'gamesList', params: {id: leagueId}}">
+                    to games ->
+                </router-link>
+            </v-col>
+        </v-row>
 
         <v-card class="pa-2 theme--dark" outlined tile>
             <v-row class="text-center" no-gutters>
-                <v-col>Rank</v-col>
-                <v-col>Name</v-col>
+                <v-col>Date</v-col>
+                <v-col>Home</v-col>
                 <v-col>Games</v-col>
                 <v-col>Win</v-col>
                 <v-col>Draw</v-col>
@@ -19,14 +25,12 @@
             </v-row>
         </v-card>
 
-        <v-card class="pa-2" outlined tile>
-            <v-row v-for="team in teams" :key="team.team_id" class="text-center" dense>
+        <v-card class="pa-2">
+            <v-row v-for="team in teams" :key="team.team_id" class="text-center elevation-1" dense>
                 <v-col>{{ team.rank }}</v-col>
                 <v-col>
-                    <v-img :src="team.logo" contain height="20"/>
-                    <router-link :to="{name: 'teamPlayers', params: {team: team.team_id}}">
-                        {{ team.teamName }}
-                    </router-link>
+                    <img :src="team.logo" align="absmiddle" height="20"/>
+                    {{ team.teamName }}
                 </v-col>
                 <v-col>{{ team.all.matchsPlayed }}</v-col>
                 <v-col>{{ team.all.win }}</v-col>
@@ -48,10 +52,11 @@
             return {
                 teams: null,
                 loading: true,
+                leagueId: this.$route.params.id
             };
         },
         created: function () {
-            getTeams(this.$route.params.id)
+            getTeams(this.leagueId)
                 .then((res) => this.teams = res)
                 .finally(() => (this.loading = false));
         }
