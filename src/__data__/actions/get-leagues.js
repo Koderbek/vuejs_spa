@@ -1,9 +1,9 @@
 import axios from 'axios'
 import * as personalApiKey from '../constants/api-key.js'
-const url = 'https://api-football-v1.p.rapidapi.com/v2/leagues/country/';
+import { API_URLS } from '../constants/api-urls.js'
 
-export default async (country, season = 2019) => {
-    const result = await axios.get(url + country + '/' + season,
+export default (country, season = 2019) => {
+    const result = axios.get(API_URLS.GET_LEAGUES + country + '/' + season,
         {
             responseType: 'json',
             headers: {'X-RapidAPI-Key': personalApiKey.API_KEY},

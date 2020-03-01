@@ -13,7 +13,6 @@
                         :rules="countryRules"
                         dense
                         outlined
-                        hide-details
                 ></v-text-field>
             </v-col>
             <v-col></v-col>
@@ -22,7 +21,8 @@
         <div v-if="searchResult" class="text-center"> {{ searchResult }}</div>
 
         <v-row class="text-center">
-            <v-col md="3" v-for="league in leagues" :key="league.league_id">
+            <v-col md="3" v-for="league in foundLeagues" :key="league.league_id">
+                <div>{{ league.name }}</div>
                 <v-card class="mx-auto league-card" width="300" outlined>
                     <v-list-item>
                         <v-list-item-content>
@@ -47,15 +47,10 @@
 </template>
 
 <script>
-    import getLeagues from '../__data__/actions/get-leagues.js';
-
-    const leaguesJson = require('../__data__/mock_leagues.json');
-
     export default {
         name: 'Leagues',
         data() {
             return {
-                leagues: leaguesJson,
                 searchParams: String,
                 searchResult: null,
                 countryRules: [
@@ -64,18 +59,16 @@
                 ]
             };
         },
+        computed: {
+            foundLeagues() {
+                return this.$store.getters.getLeagues
+            }
+        },
         methods: {
             setSearchVal: function(event) {
                 this.searchParams = event.target.value;
                 if (event.keyCode === 13 && this.searchParams) {
-                    getLeagues(this.searchParams.toLowerCase())
-                        .then((res) => {
-                            if (res && res !== []) {
-                                this.leagues = res;
-                            } else {
-                                this.searchResult = 'По запросу "' + this.searchParams + '" ничего не найдено!';
-                            }
-                        });
+                    this.$store.dispatch('searchLeagues', this.searchParams.toLowerCase())
                 } else {
                     this.leagues = leaguesJson;
                 }
@@ -85,7 +78,6 @@
 </script>
 
 <style>
-
     @import url('https://fonts.googleapis.com/css?family=Saira&display=swap');
 
     .league-card
