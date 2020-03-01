@@ -71,11 +71,13 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
         new webpackCopy([
             { from: 'node_modules/vue/dist/vue.min.js', to: 'extLib/vue.min.js' },
-            { from: 'node_modules/vuetify/dist/vuetify.min.js', to: 'extLib/vuetify.min.js' }
+            { from: 'node_modules/vuetify/dist/vuetify.min.js', to: 'extLib/vuetify.min.js' },
+            { from: 'node_modules/vuex/dist/vuex.min.js', to: 'extLib/vuex.min.js' }
         ])
     ],
     externals: {
         vue: 'Vue',
-        'vuetify': 'Vuetify'
+        'vuetify': 'Vuetify',
+        'vuex': 'Vuex'
     }
 };
