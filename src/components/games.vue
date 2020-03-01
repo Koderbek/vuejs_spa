@@ -12,10 +12,10 @@
             </v-col>
             <v-col class="text-center">
                 <v-text-field
-                        v-model="date"
                         label="Date"
                         placeholder="YYYY-MM-DD"
                         @keyup="setSearchDate"
+                        type="text"
                         :rules="dateRules"
                         dense
                         hide-details

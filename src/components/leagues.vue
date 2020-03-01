@@ -1,17 +1,23 @@
 <template>
     <v-container>
-        <h2 class="text-center display-1 mb-6">Leagues</h2>
+        <h2 class="text-center display-1">Leagues</h2>
 
-        <v-text-field
-                label="Country"
-                placeholder="Enter country"
-                style="max-width: 300px"
-                @keyup="setSearchVal"
-                type="text"
-                :rules="countryRules"
-                dense
-                outlined>
-        </v-text-field>
+        <v-row>
+            <v-col></v-col>
+            <v-col class="text-center">
+                <v-text-field
+                        label="Country"
+                        placeholder="Enter country"
+                        @keyup="setSearchVal"
+                        type="text"
+                        :rules="countryRules"
+                        dense
+                        outlined
+                        hide-details
+                ></v-text-field>
+            </v-col>
+            <v-col></v-col>
+        </v-row>
 
         <div v-if="searchResult" class="text-center"> {{ searchResult }}</div>
 
