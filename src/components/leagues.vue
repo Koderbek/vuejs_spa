@@ -8,7 +8,7 @@
                 <v-text-field
                         label="Country"
                         placeholder="Enter country"
-                        @keyup="setSearchVal"
+                        @keyup.13="setSearchVal"
                         type="text"
                         :rules="countryRules"
                         dense
@@ -66,10 +66,8 @@
         methods: {
             setSearchVal: function(event) {
                 this.searchParams = event.target.value;
-                if (event.keyCode === 13 && this.searchParams) {
+                if (this.searchParams) {
                     this.$store.dispatch('searchLeagues', this.searchParams.toLowerCase())
-                } else {
-                    this.leagues = leaguesJson;
                 }
             }
         }
@@ -89,5 +87,3 @@
         font-family: 'Saira', sans-serif !important;
     }
 </style>
-
-

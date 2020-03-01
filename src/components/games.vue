@@ -1,7 +1,6 @@
 <template>
     <v-container>
         <h2 class="text-center display-1">Games</h2>
-        <div v-if="loadingLastGames && loadingNextGames" class="text-center">Loading...</div>
 
         <v-row>
             <v-col class="text-left">
@@ -14,7 +13,7 @@
                 <v-text-field
                         label="Date"
                         placeholder="YYYY-MM-DD"
-                        @keyup="setSearchDate"
+                        @keyup.13="setSearchDate"
                         type="text"
                         :rules="dateRules"
                         dense
@@ -29,9 +28,11 @@
             </v-col>
         </v-row>
 
-        <v-card v-if="searchGames" class="black-border" outlined>
+        <div v-if="loadingLastGames && loadingNextGames" class="text-center">Loading...</div>
+
+        <v-card v-if="foundGames" class="black-border" outlined>
             <h3 class="text-center">Found games</h3>
-            <v-row v-for="game in searchGames" :key="game.fixture_id" class="text-center">
+            <v-row v-for="game in foundGames" :key="game.fixture_id" class="text-center">
                 <v-col>{{ game.event_date | timestampToString }}</v-col>
                 <v-col>
                     {{ game.homeTeam.team_name }}
@@ -87,7 +88,6 @@
 
 <script>
     import getGames from '../__data__/actions/get-games.js';
-    import getSearchGames from "../__data__/actions/get-search-games.js";
 
     export default {
         name: 'Games',
@@ -95,7 +95,7 @@
             return {
                 lastGames: null,
                 nextGames: null,
-                searchGames: null,
+                searchParams: String,
                 loadingLastGames: true,
                 loadingNextGames: true,
                 leagueId: this.$route.params.id,
@@ -121,18 +121,18 @@
                 return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
             }
         },
+        computed: {
+            foundGames() {
+                console.log(this.$store.getters.getGames);
+                return this.$store.getters.getGames
+            }
+        },
         methods: {
             setSearchDate: function(event) {
                 this.searchParams = event.target.value;
-                if (event.keyCode === 13 && this.searchParams) {
-                    getSearchGames(this.leagueId, this.searchParams)
-                        .then((res) => {
-                            if (res && res !== []) {
-                                this.searchGames = res;
-                            } else {
-                                this.searchResult = 'По запросу "' + this.searchParams + '" ничего не найдено!';
-                            }
-                        });
+                if (this.searchParams) {
+                    const { leagueId, searchParams } = this;
+                    this.$store.dispatch('searchGames', { leagueId, searchParams })
                 }
             }
         }
