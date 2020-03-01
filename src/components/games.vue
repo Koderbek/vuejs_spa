@@ -78,11 +78,6 @@
                             <img :src="game.awayTeam.logo" align="left" height="30"/>
                             {{ game.awayTeam.team_name }}
                         </v-col>
-                        <v-col lg="2">
-                            <v-btn color="indigo" icon disabled small>
-                                <v-icon>mdi-checkbox-marked-circle</v-icon>
-                            </v-btn>
-                        </v-col>
                     </v-row>
                 </v-card>
             </v-col>

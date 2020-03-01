@@ -22,7 +22,6 @@
 
         <v-row class="text-center">
             <v-col md="3" v-for="league in foundLeagues" :key="league.league_id">
-                <div>{{ league.name }}</div>
                 <v-card class="mx-auto league-card" width="300" outlined>
                     <v-list-item>
                         <v-list-item-content>
