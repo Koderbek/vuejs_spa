@@ -9,6 +9,7 @@
                 @keyup="setSearchVal"
                 type="text"
                 :rules="countryRules"
+                dense
                 outlined>
         </v-text-field>
 
